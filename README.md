@@ -51,7 +51,8 @@ archive or have copied off the jar-with-dependencies somewhere else.
 Any missing or wrong parameter prints the help message.
 
 
-gregb@saturnus ~/workspace/comScore/target $ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -halp
+gregb@saturnus ~/workspace/comScore/target $ 
+	java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -halp
 usage: MediaUtil
  -d,--datastore <arg>   directory for datastore (required for all)
  -f,--filter <arg>      filter by COLUMN=VALUE
