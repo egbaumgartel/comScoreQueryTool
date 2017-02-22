@@ -51,6 +51,9 @@ public class MediaValidatorTest {
 
 	}
 	
+	/*
+	 * Make sure files have been imported before running query tests
+	 */
 	public void importFiles() {
 		ImportFiles imp = new ImportFiles("data/");
 		try {
@@ -72,7 +75,7 @@ public class MediaValidatorTest {
 	}
 	
 	/*
-	 * NOTE - assumes you have these files in 
+	 * NOTE - assumes you have these files in the data-input directory
 	 */
 	@Test
 	public void testFileUtils() {
@@ -86,10 +89,12 @@ public class MediaValidatorTest {
 			}
 			
 			Map<String,List<Media>> newMedia = imp.importFile("data-input/stb_data.txt");
+			//record should be overwritten thus there's only one stb2
 			assertEquals(1,newMedia.get("data/stb2" + StringConstants.DATASTORE_EXTENSION.value()).size());
 			assertEquals("stb3", newMedia.get("data/stb3" + StringConstants.DATASTORE_EXTENSION.value()).get(0).getStb());
 			
 			newMedia = imp.importFile("data-input/stb_data2.txt");
+			//three distinct stb4 entries
 			assertEquals(3,newMedia.get("data/stb4" + StringConstants.DATASTORE_EXTENSION.value()).size());
 			assertEquals("stb5", newMedia.get("data/stb5" + StringConstants.DATASTORE_EXTENSION.value()).get(0).getStb());
 		} catch (IOException ioe) {
