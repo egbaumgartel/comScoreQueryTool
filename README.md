@@ -41,6 +41,7 @@ Which can be run as a jar with a Main class (com.comscore.main.MediaAccess)
 specified in the Manifest.
 
 mvn clean
+
 mvn package
 
 
