@@ -62,6 +62,23 @@
 					</filesets>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>create-data-dir</id>
+						<phase>test</phase>
+						<configuration>
+							<tasks>
+								<mkdir dir="data" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>

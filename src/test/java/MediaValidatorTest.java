@@ -134,8 +134,8 @@ public class MediaValidatorTest {
 	 */
 	@Test
 	public void testWholeProgram() {
-		String[] test1 = {"-d", "data/", "-l", "stb_data.txt"};
-		String[] test2 = {"-d", "data/", "-l", "stb_data2.txt"};
+		String[] test1 = {"-d", "data/", "-l", "data-input/stb_data.txt"};
+		String[] test2 = {"-d", "data/", "-l", "data-input/stb_data2.txt"};
 		String[] test3 = {"-d", "data/", "-f", "STB=stb1"};
 		String[] test4 = {"-d", "data/", "-f", "DATE=2014-04-01"};
 		String[] test5 = {"-d", "data/", "-f", "STB=stb4,DATE=2014-04-01"};
