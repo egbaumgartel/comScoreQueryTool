@@ -66,8 +66,8 @@
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>create-data-dir</id>
-						<phase>test</phase>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
 						<configuration>
 							<tasks>
 								<mkdir dir="data" />
