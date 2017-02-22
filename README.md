@@ -40,6 +40,9 @@ comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 Which can be run as a jar with a Main class (com.comscore.main.MediaAccess) 
 specified in the Manifest.
 
+mvn clean
+mvn package
+
 
 
 # 3. Execution
