@@ -1,5 +1,3 @@
-comScore take home problem - Greg Baumgartel
-
 
 # 1. Description
 ##################################################################################
@@ -10,19 +8,18 @@ The solution is implemented in Java.  It requires two libraries for the code its
 commons-cli  (Apache project for parsing command line options, like getopt in C)
 json-simple  (Google project for a simple, lightweight encoding and decoding of JSON data)
 
-These are also part of the project copied manually under lib/ (not managed by gradle) mostly so that Eclipse can detect them as part of the build path.  There may be a better way to integrate this with Eclipse so that it recognizes the downloaded .jar files as part of the build path.
+maven 'package' will build the dependences into the jar.
 
 The datastore is implemented in JSON.  This made sense as it is a simple, readable format, although the data file is a single line and not pretty-printed.  JSON also permits ease of use with other applications, including web and browser-based tools.
 
-I didn't think that writing my own JSON parser and encoder would have been a good use of time or demonstration of coding skills, hence the use of json-simple.
-
-You can cut and paste into http://jsonprettyprint.com/ if you need to view it in a more readable format.  It didn't seem worth adding another library to pretty print from within the application, as that doesn't affect core functionality.
-
+Cut and paste into http://jsonprettyprint.com/ if you need to view it in a more readable format.
 
 # 2. Building
 ###################################################################################
 
 Utility requires JDK 8 or higher.
+
+Maven goal 'package' should build the jar with dependencies
 
 
 
