@@ -13,8 +13,8 @@ json-simple  (Google project for a simple, lightweight encoding and decoding of
 
 maven 'package' will build the dependences into the jar.
 
-java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar  serves as both the 
-data loader and query tool, depending on command line arguments.  
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar  serves as both 
+the data loader and query tool, depending on command line arguments.  
 -l <file> will put it in load mode.
 
 The datastore is implemented in JSON.  This made sense as it is a simple, 
@@ -54,9 +54,7 @@ archive or have copied off the jar-with-dependencies somewhere else.
 
 Any missing or wrong parameter prints the help message.
 
-
-gregb@saturnus ~/workspace/comScore/target $ 
-	java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -halp
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -halp
 usage: MediaUtil
  -d,--datastore <arg>   directory for datastore (required for all)
  -f,--filter <arg>      filter by COLUMN=VALUE
@@ -88,13 +86,13 @@ Example, showing data directory off of home directory (Unix), assuming input
 files are moved to ~/data-input/.  These will need to be run before query 
 examples below will work.
 
-java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -l ~/data-input/stb_data.txt
-java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -l ~/data-input/stb_data2.txt
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -l ~/data-input/stb_data.txt
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -l ~/data-input/stb_data2.txt
 
 *NOTE*: for filters which contain a space in the field to filter by, please 
 enclose the parameter in single quotes:
 
-java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros,STB=stb5'
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros,STB=stb5'
 
 -f is a comma separated list of filters with FIELD1=value1,FIELD2=value2.
 -o is a list of columns to order by, these columns will always order, but may 
@@ -104,12 +102,12 @@ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVI
 
 Examples:
 
-java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME
-java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DATE
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DATE
 
 Assuming we've copied the jar-with-dependences into ~/workspace/tmp
 
-gregb@saturnus:~/workspace/tmp$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s VIEW_TIME,STB,REV
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s VIEW_TIME,STB,REV
 Columns: VIEW_TIME,STB,REV
 01:30:00,stb1,4.00
 01:30:00,stb4,4.00
@@ -120,7 +118,7 @@ Columns: VIEW_TIME,STB,REV
 
 Invalid columns in params will generate a warning then are ignored.
 
-gregb@saturnus:~/workspace/tmp$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DAT
+$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DAT
 WARNING: DAT is not a valid column specifier. Ignoring.
 Columns: TITLE,PROVIDER
 the matrix,warner bros
