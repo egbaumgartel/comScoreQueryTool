@@ -1,11 +1,17 @@
 package com.comscore.media;
 
+/*
+ * Object functioning as a primary key for media in the datastore.
+ */
 public class MediaMapKey {
 	
 	private String stb;
 	private String title;
 	private String date;
 	
+	/*
+	 * Initialize once with constructor.
+	 */
 	public MediaMapKey(String stb, String title, String date) {
 		this.stb = stb;
 		this.title = title;

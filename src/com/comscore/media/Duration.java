@@ -2,12 +2,24 @@ package com.comscore.media;
 
 import java.util.concurrent.TimeUnit;
 
+/*
+ * Note that exceptions in constructor will leave a Duration object with 0 duration, rather
+ * than throw an exception.  This is a somewhat conscious design decision to just warn
+ * in the output, rather than throw the exception and have the calling code deal with it.
+ * 
+ * The best implementation would depend on the effects of having an erroneous 0 duration.
+ * However, if a duration can't be read, should the record be rejected or added with
+ * a warning?  Bigger requirement question....
+ * 
+ */
 public class Duration {
 	private int hours = 0;
 	private int min = 0;
 	private int sec = 0;
 
-	// take a time in milliseconds and convert to hours/min/sec
+	/*
+	 * Constructor from milliseconds
+	 */
 	public Duration(long millis) {
 		hours = (int) TimeUnit.MILLISECONDS.toHours(millis);
 		min = (int) (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS
@@ -16,13 +28,18 @@ public class Duration {
 				.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
 	}
 	
+	/*
+	 * constructor from hours/min/sec
+	 */
 	public Duration(int hours, int min, int sec) {
 		this.hours = hours;
 		this.min = min;
 		this.sec = sec;
 	}
 	
-	//expects a string of HHH:MM:SS, not necessarily 0 left padded
+	/*
+	 * Constructor from string, like what's likely to be in the input file or data store.
+	 */
 	public Duration(String timeString) {
 		String[] durationElements = timeString.split(":");
 		if (durationElements.length != 3) {
@@ -61,6 +78,7 @@ public class Duration {
 		
 	}
 	
+	// mostly used for debugging purposes
 	public String toString() {
 		return "Duration: " + String.format("%02d", hours) + "h " + String.format("%02d", min) + "m " + String.format("%02d", sec) + "s";
 	}

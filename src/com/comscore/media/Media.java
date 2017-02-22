@@ -16,6 +16,7 @@ public class Media {
 	
 	/*
 	 * Caller is forced to use the Builder paradigm due to one constructor
+	 * and constructor is private
 	 */
 	
 	// Constructor for use with Builder

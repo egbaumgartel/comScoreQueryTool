@@ -90,7 +90,9 @@ public class MediaAccess {
 			 * Important to do in this order.  Filter, Order, Select
 			 */
 
-
+			/*
+			 * This second implements filtering if requested, otherwise gets everything.
+			 */
 			try {
 				Map<String,String> files = importFiles.getAllFilenames();
 
@@ -105,7 +107,7 @@ public class MediaAccess {
 						 * We're not filtering here, which means everything in the data store is loaded, in contradiction
 						 * with item 1) which says the whole datastore is too big for memory.  However, item 2) says
 						 * the result of queries can fit in memory, and if no filter is present, then all entries will be
-						 * loaded.  Thus this fits with a query with no filter.
+						 * loaded.  Thus this fits with a query with no filter, and conforms to requirements in 2)
 						 */
 						displayMedia.addAll(importMedia);
 					}

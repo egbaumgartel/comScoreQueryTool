@@ -215,7 +215,7 @@ public class ImportFiles {
 		
 		JSONArray jArray = (JSONArray) jObj.get("viewRecords");
 		
-		// Nothing parsable found, return empty map
+		// Nothing parseable found, return empty map
 		if (jArray == null) return mediaList;
 		
 		int elements = jArray.size();
@@ -245,7 +245,8 @@ public class ImportFiles {
 	
 	
 	
-	@SuppressWarnings("unchecked")  // NOTE - this is due to the JSON libraries, it would be nice if we could allow those warnings
+	@SuppressWarnings("unchecked")  // NOTE - this is due to the JSON libraries, would be better if they accepted
+									// type information instead of raw types
 	/*
 	 * Write media to specified file, file should have been set via STB prior to this call
 	 * 
@@ -253,7 +254,7 @@ public class ImportFiles {
 	 * @param media - list of media to write to the filename
 	 * 
 	 */
-	public boolean writeMedia(String filename, List<Media> media) {
+	public void writeMedia(String filename, List<Media> media) throws FileNotFoundException {
 
 		
 		JSONArray viewList = new JSONArray();
@@ -271,7 +272,6 @@ public class ImportFiles {
 		}
 		
 		json.put("viewRecords", viewList);
-		// System.out.println(json.toString()); // To string method prints it with specified indentation.
 		
 		try {
 			PrintWriter out = new PrintWriter(filename);
@@ -281,9 +281,9 @@ public class ImportFiles {
 			// TODO Auto-generated catch block
 			System.err.println("File: " + filename + " not accessible for writing.");
 			fnfe.printStackTrace();
-			return false;
+			throw fnfe;
 		}
 
-		return true;
+		return;
 	}
 }

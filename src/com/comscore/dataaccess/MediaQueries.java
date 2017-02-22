@@ -32,7 +32,13 @@ public class MediaQueries {
 		}
 	}
 
-	// Filter method
+	/*
+	 * Return only matching records from the data store
+	 * 
+	 * @param media - list of Media Objects
+	 * @param filter - string corresponding to command line filters
+	 * @return - filtered list of media, sub-list of original.
+	 */
 	public List<Media> filter(List<Media> media,
 			String filter) {
 		List<Media> filteredMedia = new ArrayList<Media>();
@@ -94,6 +100,10 @@ public class MediaQueries {
 	 * specified first, and the Collections.sort will not reorder equal
 	 * elements, it should have the effect of having it ordered first by the
 	 * first column, then second, then...
+	 * 
+	 * @param media - list of Media Objects
+	 * @param order - string corresponding to command line column ordering
+	 * @return - ordered list of media.
 	 */
 	public List<Media> order(List<Media> media,
 			String order) {
@@ -125,12 +135,23 @@ public class MediaQueries {
 		return orderedMedia;
 	}
 
-	//overloaded method so caller doesn't have to pass null
+	/*
+	 * Overloaded method to print media
+	 * 
+	 * @param media - media to print to STDOUT
+	 */
 	public void printMedia(List<Media> media) {
 		printMedia(media,null);
 	}
 	
-	// print given Hash of Media, showing only specified columns
+	/*
+	 * Display method, implements printing to console and the -s switch to command line
+	 * which determines which columns to display.
+	 * 
+	 * @param media - list of media objects
+	 * @param columns, string passed in from command line -s method
+	 * 
+	 */
 	public void printMedia(List<Media> media, String columns) {
 		boolean showAll = false;
 
