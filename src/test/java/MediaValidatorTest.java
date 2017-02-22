@@ -51,6 +51,29 @@ public class MediaValidatorTest {
 
 	}
 	
+	public void importFiles() {
+		ImportFiles imp = new ImportFiles("data/");
+		try {
+			// get list of map between filenames and media objects
+			Map<String,List<Media>> importMedia = imp.importFile("data-input/stb_data.txt");
+
+			for (String filename : importMedia.keySet()) {
+				imp.writeMedia(filename, importMedia.get(filename));
+			} 
+			importMedia = imp.importFile("data-input/stb_data2.txt");
+
+			for (String filename : importMedia.keySet()) {
+				imp.writeMedia(filename, importMedia.get(filename));
+			} 
+		} catch (IOException ioe) {
+			System.out.println("JUnit: Unable to load file");
+			return;
+		}
+	}
+	
+	/*
+	 * NOTE - assumes you have these files in 
+	 */
 	@Test
 	public void testFileUtils() {
 		ImportFiles imp = new ImportFiles("data/");
@@ -62,11 +85,11 @@ public class MediaValidatorTest {
 				assertTrue(stbFiles.get(s).endsWith(StringConstants.DATASTORE_EXTENSION.value()));
 			}
 			
-			Map<String,List<Media>> newMedia = imp.importFile("stb_data.txt");
+			Map<String,List<Media>> newMedia = imp.importFile("data-input/stb_data.txt");
 			assertEquals(1,newMedia.get("data/stb2" + StringConstants.DATASTORE_EXTENSION.value()).size());
 			assertEquals("stb3", newMedia.get("data/stb3" + StringConstants.DATASTORE_EXTENSION.value()).get(0).getStb());
 			
-			newMedia = imp.importFile("stb_data2.txt");
+			newMedia = imp.importFile("data-input/stb_data2.txt");
 			assertEquals(3,newMedia.get("data/stb4" + StringConstants.DATASTORE_EXTENSION.value()).size());
 			assertEquals("stb5", newMedia.get("data/stb5" + StringConstants.DATASTORE_EXTENSION.value()).get(0).getStb());
 		} catch (IOException ioe) {
@@ -78,6 +101,7 @@ public class MediaValidatorTest {
 	
 	@Test
 	public void testFilters() {
+		importFiles();  //make sure everything is loaded
 		ImportFiles imp = new ImportFiles("data/");
 		List<Media> importMedia = imp.importJson("stb4-STB.json");
 		

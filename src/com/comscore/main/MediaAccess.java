@@ -79,7 +79,7 @@ public class MediaAccess {
 					} 
 				} catch (IOException ioe) {
 					System.out.println("Unable to load file: " + line.getOptionValue( "l" ));
-					System.exit(1);
+					return;
 				}
 
 				System.out.println("Load completed.");

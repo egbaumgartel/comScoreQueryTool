@@ -71,7 +71,7 @@ public class ImportFiles {
 			return null;
 		}
 
-		Path path = Paths.get(dirname + "/" + filename);
+		Path path = Paths.get(filename);
 		List<String> fileLines = null;
 
 		/* We're going to load all entries FROM IMPORT FILE ONLY, not the whole data store
@@ -194,7 +194,7 @@ public class ImportFiles {
 		try {
 			fileLines = Files.readAllLines(path, StandardCharsets.UTF_8);
 		} catch (IOException exc) {
-			System.err.println("Error accessing file " + dirname);
+			System.err.println("Error accessing file " + filename);
 			exc.printStackTrace();
 			return null;
 		}
