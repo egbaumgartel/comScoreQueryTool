@@ -19,35 +19,48 @@ Cut and paste into http://jsonprettyprint.com/ if you need to view it in a more 
 
 Utility requires JDK 8 or higher.
 
-Maven goal 'package' should build the jar with dependencies
+Maven goal 'package' should build the jar with dependencies, running JUnit tests.
+
+Under the 'target' directory, it will create:
+
+comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+Which can be run as a jar with a Main class (com.comscore.main.MediaAccess) specified in the Manifest.
 
 
 
 # 3. Execution
 ####################################################################################
 
+JDK/JRE 8 is required.
+
 Any missing or wrong parameter prints the help message.
 
-gregb@saturnus:~/workspace/tmp$ comScore/bin/comScore -halps
-usage: comScore
- -d,--datastore <arg>   datastore (required)
+
+gregb@saturnus ~/workspace/comScore/target $ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -halp
+usage: MediaUtil
+ -d,--datastore <arg>   directory for datastore (required for all)
  -f,--filter <arg>      filter by COLUMN=VALUE
  -l,--load-file <arg>   load entries from file
  -o,--order-by <arg>    comma separated columns to order by
  -s,--select <arg>      comma separated list of columns to select
 
-
 Columns: STB,TITLE,PROVIDER,DATE,REV,VIEW_TIME
 
-By default the program will print all columns for all entries in the data store (in the case of -l, after the file is loaded).
+By default the program will print all columns for all entries in the data stores, as there is no filter on the query.
 
-the -d is required, and lets the program know the location of the datastore JSON.  The obvious convention is to have a .json file for this.  If it does not exist, it is created empty, until -l loads data into it.
+The -d is required, and lets the program know the location of the datastore JSON(s).  The obvious convention is to have a .json file for this.
+JSON files are separated by STB, all entries for one STB go into one file.  This allows only partial data to be loaded into memory, if
+entries are more or less split evenly between STB's.
+
+During a load (-l) of new data in the input format, new JSON file for each STB is created if needed.
 
 -l loads the pipe-delimited file specified in the argument into the JSON data store.  Previous entries with the STB,TITLE,DATE key from either the JSON store or the same pipe-delimited file are overwritten.  Loading a file:
 
-comScore/bin/comScore -d ~/data/media.json -l ~/data/stb_data2.txt
+Example, showing data directory off of home directory (Unix):
 
-Note that other options can be added to the -l: -s, -o, and -f will be applied after the file is loaded and all entries are accessible.
+java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -l ~/data/stb_data.txt
+java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -l ~/data/stb_data2.txt
 
 *NOTE*: for filters which contain a space in the field to filter by, please enclose the parameter in single quotes:
 
@@ -59,10 +72,10 @@ comScore/bin/comScore -d ~/data/media.json -f 'PROVIDER=warner bros,STB=stb5'
 
 Examples:
 
-comScore/bin/comScore -d ~/data/media.json -f 'PROVIDER=warner bros' -o REV,VIEW_TIME
-comScore/bin/comScore -d ~/data/media.json -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DATE
+java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME
+java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DATE
 
-gregb@saturnus:~/workspace/tmp$ comScore/bin/comScore -d ~/data/media.json -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s VIEW_TIME,STB,REV
+gregb@saturnus:~/workspace/tmp$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s VIEW_TIME,STB,REV
 Columns: VIEW_TIME,STB,REV
 01:30:00,stb1,4.00
 01:30:00,stb4,4.00
@@ -73,7 +86,7 @@ Columns: VIEW_TIME,STB,REV
 
 Invalid columns in params will generate a warning then are ignored.
 
-gregb@saturnus:~/workspace/tmp$ comScore/bin/comScore -d ~/data/media.json -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DAT
+gregb@saturnus:~/workspace/tmp$ java -jar comScore-0.0.1-SNAPSHOT-jar-with-dependencies.jar -d ~/data/ -f 'PROVIDER=warner bros' -o REV,VIEW_TIME -s TITLE,PROVIDER,DAT
 WARNING: DAT is not a valid column specifier. Ignoring.
 Columns: TITLE,PROVIDER
 the matrix,warner bros
